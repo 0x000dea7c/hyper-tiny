@@ -1,7 +1,7 @@
-SYSCONF_LINK = g++
-CPPFLAGS     = -Wall -Wextra -pedantic -std=c++17 -pg -O3 -ggdb3 -march=native
-LDFLAGS      =
-LIBS         = -lm -pg
+SYSCONF_LINK := g++
+CXXFLAGS     := -Wall -Wextra -pedantic -std=c++17 -pg -O3 -ggdb3 -march=native -D_GLIBCXX_DEBUG -Wformat -Wformat-security
+LDFLAGS      :=
+LIBS         := -lm -pg
 
 DESTDIR = ./
 TARGET  = main
@@ -14,7 +14,7 @@ $(DESTDIR)$(TARGET): $(OBJECTS)
 	$(SYSCONF_LINK) -Wall $(LDFLAGS) -o $(DESTDIR)$(TARGET) $(OBJECTS) $(LIBS)
 
 $(OBJECTS): %.o: %.cc
-	$(SYSCONF_LINK) -Wall $(CPPFLAGS) -c $(CFLAGS) $< -o $@
+	$(SYSCONF_LINK) -Wall $(CXXFLAGS) -c $(CFLAGS) $< -o $@
 
 clean:
 	-rm -f $(OBJECTS)
