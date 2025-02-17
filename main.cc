@@ -180,6 +180,13 @@ namespace hyper
     return draw_line_bresenham (x0, y0, x1, y1, color);
   }
 
+  void
+  draw_triangle (Vec3f p0, Vec3f p1, Vec3f p2, TGAColor color)
+  {
+    draw_line (p0.x, p0.y, p1.x, p1.y, color);
+    draw_line (p1.x, p1.y, p2.x, p2.y, color);
+    draw_line (p0.x, p0.y, p2.x, p2.y, color);
+  }
 };
 
 int
@@ -187,27 +194,23 @@ main ()
 {
   hyper::Model model;
 
-  if (!load_obj_file (model, "obj/african_head.obj"))
-    return EXIT_FAILURE;
+  hyper::Vec3f p0 = { 0.0f, 0.0f, 0.0f };
+  hyper::Vec3f p1 = { 50.0f, 0.0f, 0.0f };
+  hyper::Vec3f p2 = { 25.0f, 100.0f, 0.0f };
 
-  for (size_t i = 0; i < model.faces.size (); ++i)
-    {
-      for (size_t j = 0; j < 3; ++j)
-        {
-          //
-          // Draw 3 lines!
-          //
-          // screenX = ((x + 1) / 2) * image.get_width ()
-          // screenY = (1.0 - ((y + 1) / 2)) * image.get_width ()
-          //
-          int x0 = (int) std::floor (((model.vertices[model.faces[i][j]].x + 1.0) / 2.0f) * image.get_width ());
-          int y0 = (int) std::floor (((model.vertices[model.faces[i][j]].y + 1) / 2.0f) * (image.get_height () - 1));
-          int x1 = (int) std::floor (((model.vertices[model.faces[i][(j + 1) % 3]].x + 1.0) / 2.0f) * image.get_width ());
-          int y1 = (int) std::floor (((model.vertices[model.faces[i][(j + 1) % 3]].y + 1.0) / 2.0f) * (image.get_height () - 1));
+  draw_triangle (p0, p1, p2, white);
 
-          hyper::draw_line (x0, y0, x1, y1, white);
-        }
-    }
+  p0 = { 0.0f, 1079.0f, 0.0f };
+  p1 = { 50.0f, 1079.0f, 0.0f };
+  p2 = { 25.0f, 1030.0f, 0.0f };
+
+  draw_triangle (p0, p1, p2, red);
+
+  p0 = { 910.0f, 1079.0f, 0.0f };
+  p1 = { 1100.0f, 1079.0f, 0.0f };
+  p2 = { 1005.0f, 500.0f, 0.0f };
+
+  draw_triangle (p0, p1, p2, green);
 
   // I want to have the origin at the left bottom corner of the image
   image.flip_vertically ();
