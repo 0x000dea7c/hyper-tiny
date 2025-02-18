@@ -1,20 +1,19 @@
 Flat profile:
 
 Each sample counts as 0.01 seconds.
+ no time accumulated
+
   %   cumulative   self              self     total           
- time   seconds   seconds    calls  ms/call  ms/call  name    
-100.01      0.01     0.01        1    10.00    10.00  TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&)
-  0.00      0.01     0.00   305991     0.00     0.00  TGAImage::set(int, int, TGAColor)
-  0.00      0.01     0.00    14952     0.00     0.00  TGAImage::get_height()
-  0.00      0.01     0.00    14952     0.00     0.00  TGAImage::get_width()
-  0.00      0.01     0.00    11226     0.00     0.00  _dl_relocate_static_pie
-  0.00      0.01     0.00     7476     0.00     0.00  void std::__cxx1998::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long>(unsigned long&&)
-  0.00      0.01     0.00       13     0.00     0.00  void std::__cxx1998::vector<std::__debug::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::__debug::vector<unsigned long, std::allocator<unsigned long> > > >::_M_realloc_append<>()
-  0.00      0.01     0.00        1     0.00     0.00  hyper::load_obj_file(hyper::Model&, char const*)
-  0.00      0.01     0.00        1     0.00     0.00  hyper::Model::~Model()
-  0.00      0.01     0.00        1     0.00    10.00  TGAImage::write_tga_file(char const*, bool)
-  0.00      0.01     0.00        1     0.00     0.00  TGAImage::flip_vertically()
-  0.00      0.01     0.00        1     0.00     0.00  TGAImage::TGAImage(int, int, int)
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+  0.00      0.00     0.00    55310     0.00     0.00  TGAImage::set(int, int, TGAColor)
+  0.00      0.00     0.00        9     0.00     0.00  _dl_relocate_static_pie
+  0.00      0.00     0.00        2     0.00     0.00  hyper::draw_triangle_outlined(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor)
+  0.00      0.00     0.00        1     0.00     0.00  hyper::draw_triangle_filled(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor)
+  0.00      0.00     0.00        1     0.00     0.00  hyper::Model::~Model()
+  0.00      0.00     0.00        1     0.00     0.00  TGAImage::write_tga_file(char const*, bool)
+  0.00      0.00     0.00        1     0.00     0.00  TGAImage::flip_vertically()
+  0.00      0.00     0.00        1     0.00     0.00  TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&)
+  0.00      0.00     0.00        1     0.00     0.00  TGAImage::TGAImage(int, int, int)
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -52,60 +51,43 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 99.99% of 0.01 seconds
+granularity: each sample hit covers 2 byte(s) no time propagated
 
 index % time    self  children    called     name
-                                                 <spontaneous>
-[1]    100.0    0.00    0.01                 main [1]
-                0.00    0.01       1/1           TGAImage::write_tga_file(char const*, bool) [2]
-                0.00    0.00   14952/14952       TGAImage::get_width() [9]
-                0.00    0.00   14952/14952       TGAImage::get_height() [8]
-                0.00    0.00    7476/11226       _dl_relocate_static_pie [10]
-                0.00    0.00       1/1           hyper::load_obj_file(hyper::Model&, char const*) [13]
-                0.00    0.00       1/1           TGAImage::flip_vertically() [15]
-                0.00    0.00       1/1           hyper::Model::~Model() [14]
+                0.00    0.00     404/55310       _dl_relocate_static_pie [6]
+                0.00    0.00   54906/55310       hyper::draw_triangle_filled(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor) [8]
+[5]      0.0    0.00    0.00   55310         TGAImage::set(int, int, TGAColor) [5]
 -----------------------------------------------
-                0.00    0.01       1/1           main [1]
-[2]    100.0    0.00    0.01       1         TGAImage::write_tga_file(char const*, bool) [2]
-                0.01    0.00       1/1           TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&) [3]
+                0.00    0.00       2/9           main [4]
+                0.00    0.00       3/9           hyper::draw_triangle_filled(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor) [8]
+                0.00    0.00       4/9           hyper::draw_triangle_outlined(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor) [7]
+[6]      0.0    0.00    0.00       9         _dl_relocate_static_pie [6]
+                0.00    0.00     404/55310       TGAImage::set(int, int, TGAColor) [5]
 -----------------------------------------------
-                0.01    0.00       1/1           TGAImage::write_tga_file(char const*, bool) [2]
-[3]    100.0    0.01    0.00       1         TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&) [3]
+                0.00    0.00       2/2           main [4]
+[7]      0.0    0.00    0.00       2         hyper::draw_triangle_outlined(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor) [7]
+                0.00    0.00       4/9           _dl_relocate_static_pie [6]
 -----------------------------------------------
-                0.00    0.00  305991/305991      _dl_relocate_static_pie [10]
-[7]      0.0    0.00    0.00  305991         TGAImage::set(int, int, TGAColor) [7]
+                0.00    0.00       1/1           main [4]
+[8]      0.0    0.00    0.00       1         hyper::draw_triangle_filled(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor) [8]
+                0.00    0.00   54906/55310       TGAImage::set(int, int, TGAColor) [5]
+                0.00    0.00       3/9           _dl_relocate_static_pie [6]
 -----------------------------------------------
-                0.00    0.00   14952/14952       main [1]
-[8]      0.0    0.00    0.00   14952         TGAImage::get_height() [8]
+                0.00    0.00       1/1           main [4]
+[9]      0.0    0.00    0.00       1         hyper::Model::~Model() [9]
 -----------------------------------------------
-                0.00    0.00   14952/14952       main [1]
-[9]      0.0    0.00    0.00   14952         TGAImage::get_width() [9]
+                0.00    0.00       1/1           main [4]
+[10]     0.0    0.00    0.00       1         TGAImage::write_tga_file(char const*, bool) [10]
+                0.00    0.00       1/1           TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&) [12]
 -----------------------------------------------
-                0.00    0.00    3750/11226       hyper::load_obj_file(hyper::Model&, char const*) [13]
-                0.00    0.00    7476/11226       main [1]
-[10]     0.0    0.00    0.00   11226         _dl_relocate_static_pie [10]
-                0.00    0.00  305991/305991      TGAImage::set(int, int, TGAColor) [7]
+                0.00    0.00       1/1           main [4]
+[11]     0.0    0.00    0.00       1         TGAImage::flip_vertically() [11]
 -----------------------------------------------
-                0.00    0.00    7476/7476        hyper::load_obj_file(hyper::Model&, char const*) [13]
-[11]     0.0    0.00    0.00    7476         void std::__cxx1998::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long>(unsigned long&&) [11]
+                0.00    0.00       1/1           TGAImage::write_tga_file(char const*, bool) [10]
+[12]     0.0    0.00    0.00       1         TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&) [12]
 -----------------------------------------------
-                0.00    0.00      13/13          hyper::load_obj_file(hyper::Model&, char const*) [13]
-[12]     0.0    0.00    0.00      13         void std::__cxx1998::vector<std::__debug::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::__debug::vector<unsigned long, std::allocator<unsigned long> > > >::_M_realloc_append<>() [12]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[13]     0.0    0.00    0.00       1         hyper::load_obj_file(hyper::Model&, char const*) [13]
-                0.00    0.00    7476/7476        void std::__cxx1998::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long>(unsigned long&&) [11]
-                0.00    0.00    3750/11226       _dl_relocate_static_pie [10]
-                0.00    0.00      13/13          void std::__cxx1998::vector<std::__debug::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::__debug::vector<unsigned long, std::allocator<unsigned long> > > >::_M_realloc_append<>() [12]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[14]     0.0    0.00    0.00       1         hyper::Model::~Model() [14]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[15]     0.0    0.00    0.00       1         TGAImage::flip_vertically() [15]
------------------------------------------------
-                0.00    0.00       1/1           _GLOBAL__sub_I__ZN5hyper13load_obj_fileERNS_5ModelEPKc [17]
-[16]     0.0    0.00    0.00       1         TGAImage::TGAImage(int, int, int) [16]
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN5hyper13load_obj_fileERNS_5ModelEPKc [14]
+[13]     0.0    0.00    0.00       1         TGAImage::TGAImage(int, int, int) [13]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -198,7 +180,6 @@ notice and this notice are preserved.
 
 Index by function name
 
-  [13] hyper::load_obj_file(hyper::Model&, char const*) [15] TGAImage::flip_vertically() [16] TGAImage::TGAImage(int, int, int)
-  [14] hyper::Model::~Model()  [3] TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&) [12] void std::__cxx1998::vector<std::__debug::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::__debug::vector<unsigned long, std::allocator<unsigned long> > > >::_M_realloc_append<>()
-   [8] TGAImage::get_height()  [7] TGAImage::set(int, int, TGAColor) [11] void std::__cxx1998::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long>(unsigned long&&)
-   [2] TGAImage::write_tga_file(char const*, bool) [9] TGAImage::get_width() [10] _dl_relocate_static_pie
+   [8] hyper::draw_triangle_filled(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor) [10] TGAImage::write_tga_file(char const*, bool) [5] TGAImage::set(int, int, TGAColor)
+   [7] hyper::draw_triangle_outlined(hyper::Vec3f, hyper::Vec3f, hyper::Vec3f, TGAColor) [11] TGAImage::flip_vertically() [13] TGAImage::TGAImage(int, int, int)
+   [9] hyper::Model::~Model() [12] TGAImage::unload_rle_data(std::basic_ofstream<char, std::char_traits<char> >&) [6] _dl_relocate_static_pie

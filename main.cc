@@ -180,12 +180,89 @@ namespace hyper
     return draw_line_bresenham (x0, y0, x1, y1, color);
   }
 
+  // Lesson 2: drawing a triangle (outline and filled)
   void
-  draw_triangle (Vec3f p0, Vec3f p1, Vec3f p2, TGAColor color)
+  draw_triangle_outlined (Vec3f p0, Vec3f p1, Vec3f p2, TGAColor color)
   {
     draw_line (p0.x, p0.y, p1.x, p1.y, color);
     draw_line (p1.x, p1.y, p2.x, p2.y, color);
     draw_line (p0.x, p0.y, p2.x, p2.y, color);
+  }
+
+  // linear interpolation
+  static std::vector<int>
+  interpolate (Vec3f p0, Vec3f p1)
+  {
+    if (p1.y == p0.y)
+      return { (int) p0.x };
+
+    if (p0.y > p1.y)
+      std::swap (p0, p1);
+
+    std::vector<int> interpolated;
+    float a = (p1.x - p0.x) / (p1.y - p0.y);
+    float d = p0.x;
+
+    for (int y = p0.y; y <= p1.y; ++y)
+      {
+        interpolated.push_back ((int) d);
+        d += a;
+      }
+
+    return interpolated;
+  }
+
+  void
+  draw_triangle_filled (Vec3f p0, Vec3f p1, Vec3f p2, TGAColor color)
+  {
+    // first vertex always at the top, this will make things easier
+    // because I can assume p0 < p1 < p2
+    if (p0.y > p1.y)
+      std::swap (p1, p0);
+
+    if (p0.y > p2.y)
+      std::swap (p0, p2);
+
+    if (p1.y > p2.y)
+      std::swap (p1, p2);
+
+
+    // now compute x coordinates for every y. The triangle has 3 sides, I'll call
+    // them x02, x01, x12
+    std::vector<int> x02 = interpolate (p0, p2); // tallest side
+    std::vector<int> x01 = interpolate (p0, p1); // shortest side
+    std::vector<int> x12 = interpolate (p1, p2);
+
+    assert (!x02.empty () && "x02 is empty, bad");
+    assert (!x01.empty () && "x01 is empty, bad");
+    assert (!x12.empty () && "x12 is empty, bad");
+
+    // careful here: x01 and x12 share a same pixel, so remove any of the two
+    x01.pop_back ();
+
+    // now merge x01 and x12
+    x01.insert (x01.end (), x12.begin (), x12.end ());
+
+    // now determine which is the left and right sides, for that, randomly pick the
+    // mid element and see which x is smaller
+    auto left = x02.begin ();
+    auto right = x01.begin ();
+    auto mid = x02.size () / 2;
+
+    if (x01[mid] < x02[mid])
+      {
+        left = x01.begin ();
+        right = x02.begin ();
+      }
+
+    // traverse every row and draw horizontal segments (is this known as spans?)
+    for (int y = p0.y; y < p2.y; ++y)
+      {
+        for (int x = left[y - p0.y]; x < right[y - p0.y]; ++x)
+          {
+            image.set (x, y, color);
+          }
+      }
   }
 };
 
@@ -198,19 +275,19 @@ main ()
   hyper::Vec3f p1 = { 50.0f, 0.0f, 0.0f };
   hyper::Vec3f p2 = { 25.0f, 100.0f, 0.0f };
 
-  draw_triangle (p0, p1, p2, white);
+  draw_triangle_outlined (p0, p1, p2, white);
 
   p0 = { 0.0f, 1079.0f, 0.0f };
   p1 = { 50.0f, 1079.0f, 0.0f };
   p2 = { 25.0f, 1030.0f, 0.0f };
 
-  draw_triangle (p0, p1, p2, red);
+  draw_triangle_outlined (p0, p1, p2, red);
 
   p0 = { 910.0f, 1079.0f, 0.0f };
   p1 = { 1100.0f, 1079.0f, 0.0f };
   p2 = { 1005.0f, 500.0f, 0.0f };
 
-  draw_triangle (p0, p1, p2, green);
+  draw_triangle_filled (p0, p1, p2, green);
 
   // I want to have the origin at the left bottom corner of the image
   image.flip_vertically ();

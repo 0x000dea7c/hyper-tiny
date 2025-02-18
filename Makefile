@@ -1,5 +1,6 @@
+# -D_GLIBCXX_DEBUG -DDEBUG
 SYSCONF_LINK := g++
-CXXFLAGS     := -Wall -Wextra -pedantic -std=c++17 -pg -O3 -ggdb3 -march=native -D_GLIBCXX_DEBUG -Wformat -Wformat-security
+CXXFLAGS     := -Wall -Wextra -pedantic -std=c++17 -pg -O3 -ggdb3 -march=native -Wformat -Wformat-security
 LDFLAGS      :=
 LIBS         := -lm -pg
 
