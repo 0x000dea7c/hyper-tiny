@@ -275,19 +275,28 @@ main ()
   hyper::Vec3f p1 = { 50.0f, 0.0f, 0.0f };
   hyper::Vec3f p2 = { 25.0f, 100.0f, 0.0f };
 
-  draw_triangle_outlined (p0, p1, p2, white);
+  if (!load_obj_file (model, "obj/african_head.obj"))
+    return EXIT_FAILURE;
 
-  p0 = { 0.0f, 1079.0f, 0.0f };
-  p1 = { 50.0f, 1079.0f, 0.0f };
-  p2 = { 25.0f, 1030.0f, 0.0f };
+  for (size_t i = 0; i < model.faces.size (); ++i)
+    {
+      for (size_t j = 0; j < 3; ++j)
+        {
 
-  draw_triangle_outlined (p0, p1, p2, red);
+          int x0 = (int) std::floor (((model.vertices[model.faces[i][j]].x + 1.0) / 2.0f) * image.get_width ());
+          int y0 = (int) std::floor (((model.vertices[model.faces[i][j]].y + 1) / 2.0f) * (image.get_height () - 1));
+          int x1 = (int) std::floor (((model.vertices[model.faces[i][(j + 1) % 3]].x + 1.0) / 2.0f) * image.get_width ());
+          int y1 = (int) std::floor (((model.vertices[model.faces[i][(j + 1) % 3]].y + 1.0) / 2.0f) * (image.get_height () - 1));
+          int x2 = (int) std::floor (((model.vertices[model.faces[i][(j + 2) % 3]].x + 1.0) / 2.0f) * image.get_width ());
+          int y2 = (int) std::floor (((model.vertices[model.faces[i][(j + 2) % 3]].y + 1.0) / 2.0f) * (image.get_height () - 1));
 
-  p0 = { 910.0f, 1079.0f, 0.0f };
-  p1 = { 1100.0f, 1079.0f, 0.0f };
-  p2 = { 1005.0f, 500.0f, 0.0f };
+          hyper::Vec3f p0 = { x0, y0, 0 };
+          hyper::Vec3f p1 = { x1, y1, 0 };
+          hyper::Vec3f p2 = { x2, y2, 0 };
 
-  draw_triangle_filled (p0, p1, p2, green);
+          hyper::draw_triangle_filled (p0, p1, p2, TGAColor (rand () % 255, rand () % 255, rand () % 255, 255));
+        }
+    }
 
   // I want to have the origin at the left bottom corner of the image
   image.flip_vertically ();
